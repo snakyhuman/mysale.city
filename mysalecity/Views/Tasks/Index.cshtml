@@ -1,0 +1,50 @@
+﻿@model IEnumerable<MYSALE.Models.Task>
+<div>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Company)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Text)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Start)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Finish)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Company)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Text)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Start)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Finish)
+                </td>
+                <td>
+                    @Html.ActionLink("Редактировать", "Edit", new { id = item.id }, new { @class = "btn btn-default" })
+                    @Html.ActionLink("Инфо", "Details", new { id = item.id }, new { @class = "btn btn-warning" })
+                    @Html.ActionLink("X", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+    </table>
+    @Html.ActionLink("Создать задачу", "Create", null, new { @class = "btn btn-default btn-block" })
+</div>

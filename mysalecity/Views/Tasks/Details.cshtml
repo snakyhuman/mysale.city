@@ -1,0 +1,64 @@
+﻿@model MYSALE.Models.Task
+
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>Задачи</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Company)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Company)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Text)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Text)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Start)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Start)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Finish)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Finish)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Изменить", "Edit", new { id = Model.id }) |
+        @Html.ActionLink("К списку", "Index")
+    </p>
+</body>
+</html>

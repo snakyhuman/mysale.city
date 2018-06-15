@@ -3271,7 +3271,7 @@ input[type="button"].btn-block {
   clear: both;
   font-weight: normal;
   line-height: 1.428571429;
-  color: #333333;
+  color: #e5e5e5;
   white-space: nowrap;
 }
 
@@ -3294,7 +3294,7 @@ input[type="button"].btn-block {
 .dropdown-menu > .disabled > a,
 .dropdown-menu > .disabled > a:hover,
 .dropdown-menu > .disabled > a:focus {
-  color: #999999;
+  color: #ffffff;
 }
 
 .dropdown-menu > .disabled > a:hover,
@@ -3319,7 +3319,7 @@ input[type="button"].btn-block {
   padding: 3px 20px;
   font-size: 12px;
   line-height: 1.428571429;
-  color: #999999;
+  color: #ffffff;
 }
 
 .dropdown-backdrop {

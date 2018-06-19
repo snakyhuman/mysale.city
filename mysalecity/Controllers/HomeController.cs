@@ -1,4 +1,4 @@
-﻿using MYSALE.Models;
+﻿using mysalecity.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,36 +10,10 @@ namespace mysalecity.Controllers
     public class HomeController : Controller
     {
 
-  
-
         public ActionResult Index()
         {
             return View();
         }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-        public ActionResult Tasks(Task tasks)
-        {
-            return View(tasks);
-        }
-        public ActionResult ListTasks(Task tasks)
-        {
-            mscContext mscContext = new mscContext();
-             MYSALE.Models.Task task = new Task();
-            var a = mscContext.Tasks.ToList();
-            return View(a);
-        }
+           
     }
 }

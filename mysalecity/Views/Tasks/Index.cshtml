@@ -1,50 +1,64 @@
-﻿@model IEnumerable<MYSALE.Models.Task>
-<div>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Company)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Text)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Start)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Finish)
-            </th>
-            <th></th>
-        </tr>
+﻿@model IEnumerable<mysalecity.Models.task>
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Company)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Text)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Start)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Finish)
-                </td>
-                <td>
-                    @Html.ActionLink("Редактировать", "Edit", new { id = item.id }, new { @class = "btn btn-default" })
-                    @Html.ActionLink("Инфо", "Details", new { id = item.id }, new { @class = "btn btn-warning" })
-                    @Html.ActionLink("X", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
-                </td>
-            </tr>
-        }
-    </table>
-    @Html.ActionLink("Создать задачу", "Create", null, new { @class = "btn btn-default btn-block" })
-</div>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.date_start)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.date_finish)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.text)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.info)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.company.company_name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.date_start)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.date_finish)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.text)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.info)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.company.company_name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

@@ -10,112 +10,120 @@ using mysalecity.Models;
 
 namespace mysalecity.Controllers
 {
-    public class tasksController : Controller
+    public class companiesController : Controller
     {
         private mysale_dbEntities db = new mysale_dbEntities();
 
-        // GET: tasks
+        // GET: companies
         public ActionResult Index()
         {
-            var tasks = db.tasks.Include(t => t.company);
-            return View(tasks.ToList());
+            var companies = db.companies.Include(c => c.category1).Include(c => c.city1).Include(c => c.company_status1);
+            return View(companies.ToList());
         }
 
-        // GET: tasks/Details/5
+        // GET: companies/Details/5
         public ActionResult Details(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            task task = db.tasks.Find(id);
-            if (task == null)
+            company company = db.companies.Find(id);
+            if (company == null)
             {
                 return HttpNotFound();
             }
-            return View(task);
+            return View(company);
         }
 
-        // GET: tasks/Create
+        // GET: companies/Create
         public ActionResult Create()
         {
-            ViewBag.company_id = new SelectList(db.companies, "id", "company_name");
+            ViewBag.category = new SelectList(db.categories, "id", "name");
+            ViewBag.city = new SelectList(db.cities, "id", "name");
+            ViewBag.company_status = new SelectList(db.company_status, "id", "name");
             return View();
         }
 
-        // POST: tasks/Create
+        // POST: companies/Create
         // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
         // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,company_id,date_start,date_finish,title,text,info")] task task)
+        public ActionResult Create([Bind(Include = "id,company_name,city,adress,web_adress,company_login,company_password,inn,personal_account,registration_date,paying_time,company_status,category")] company company)
         {
             if (ModelState.IsValid)
             {
-                db.tasks.Add(task);
+                db.companies.Add(company);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.company_id = new SelectList(db.companies, "id", "company_name", task.company_id);
-            return View(task);
+            ViewBag.category = new SelectList(db.categories, "id", "name", company.category);
+            ViewBag.city = new SelectList(db.cities, "id", "name", company.city);
+            ViewBag.company_status = new SelectList(db.company_status, "id", "name", company.company_status);
+            return View(company);
         }
 
-        // GET: tasks/Edit/5
+        // GET: companies/Edit/5
         public ActionResult Edit(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            task task = db.tasks.Find(id);
-            if (task == null)
+            company company = db.companies.Find(id);
+            if (company == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.company_id = new SelectList(db.companies, "id", "company_name", task.company_id);
-            return View(task);
+            ViewBag.category = new SelectList(db.categories, "id", "name", company.category);
+            ViewBag.city = new SelectList(db.cities, "id", "name", company.city);
+            ViewBag.company_status = new SelectList(db.company_status, "id", "name", company.company_status);
+            return View(company);
         }
 
-        // POST: tasks/Edit/5
+        // POST: companies/Edit/5
         // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
         // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,company_id,date_start,date_finish,title,text,info")] task task)
+        public ActionResult Edit([Bind(Include = "id,company_name,city,adress,web_adress,company_login,company_password,inn,personal_account,registration_date,paying_time,company_status,category")] company company)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(task).State = EntityState.Modified;
+                db.Entry(company).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.company_id = new SelectList(db.companies, "id", "company_name", task.company_id);
-            return View(task);
+            ViewBag.category = new SelectList(db.categories, "id", "name", company.category);
+            ViewBag.city = new SelectList(db.cities, "id", "name", company.city);
+            ViewBag.company_status = new SelectList(db.company_status, "id", "name", company.company_status);
+            return View(company);
         }
 
-        // GET: tasks/Delete/5
+        // GET: companies/Delete/5
         public ActionResult Delete(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            task task = db.tasks.Find(id);
-            if (task == null)
+            company company = db.companies.Find(id);
+            if (company == null)
             {
                 return HttpNotFound();
             }
-            return View(task);
+            return View(company);
         }
 
-        // POST: tasks/Delete/5
+        // POST: companies/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            task task = db.tasks.Find(id);
-            db.tasks.Remove(task);
+            company company = db.companies.Find(id);
+            db.companies.Remove(company);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -59,23 +59,22 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="MySql.Data, Version=8.0.11.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <HintPath>..\packages\MySql.Data.8.0.11\lib\net452\MySql.Data.dll</HintPath>
+    <Reference Include="MySql.Data, Version=6.10.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.6.10.7\lib\net452\MySql.Data.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="MySql.Data.Entity.EF6, Version=6.10.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.Entity.6.10.7\lib\net452\MySql.Data.Entity.EF6.dll</HintPath>
-    </Reference>
-    <Reference Include="MySql.Data.EntityFramework, Version=8.0.11.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <HintPath>..\packages\MySql.Data.EntityFramework.8.0.11\lib\net452\MySql.Data.EntityFramework.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel" />
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web.DynamicData" />
@@ -167,15 +166,61 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\AppController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\companiesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\TasksController.cs" />
+    <Compile Include="Controllers\tasksController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AuthModel.cs" />
-    <Compile Include="Models\mainModel.cs" />
+    <Compile Include="Models\agent.cs">
+      <DependentUpon>mysaleModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\agent_status.cs">
+      <DependentUpon>mysaleModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\category.cs">
+      <DependentUpon>mysaleModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\city.cs">
+      <DependentUpon>mysaleModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\company.cs">
+      <DependentUpon>mysaleModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\company_status.cs">
+      <DependentUpon>mysaleModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\mysaleModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>mysaleModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\mysaleModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>mysaleModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\mysaleModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>mysaleModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\task.cs">
+      <DependentUpon>mysaleModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ticket.cs">
+      <DependentUpon>mysaleModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tickets_type.cs">
+      <DependentUpon>mysaleModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\user.cs">
+      <DependentUpon>mysaleModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\user_statuses.cs">
+      <DependentUpon>mysaleModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -187,10 +232,27 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\mysaleModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>mysaleModel.Context.cs</LastGenOutput>
+      <DependentUpon>mysaleModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\mysaleModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>mysaleModel.edmx</DependentUpon>
+      <LastGenOutput>mysaleModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EntityDeploy Include="Models\mysaleModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>mysaleModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\mysaleModel.edmx.diagram">
+      <DependentUpon>mysaleModel.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\mysalecity - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\Web Deploy.pubxml" />
@@ -205,6 +267,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Views\Auth\Login.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -214,28 +277,27 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\Tasks.cshtml" />
-    <Content Include="Views\Home\ListTasks.cshtml" />
-    <Content Include="Views\Tasks\Create.cshtml" />
-    <Content Include="Views\Tasks\Delete.cshtml" />
-    <Content Include="Views\Tasks\Details.cshtml" />
-    <Content Include="Views\Tasks\Edit.cshtml" />
-    <Content Include="Views\Tasks\Index.cshtml" />
-    <Content Include="Views\Auth\Login.cshtml" />
+    <Content Include="Views\tasks\Create.cshtml" />
+    <Content Include="Views\tasks\Delete.cshtml" />
+    <Content Include="Views\tasks\Details.cshtml" />
+    <Content Include="Views\tasks\Edit.cshtml" />
+    <Content Include="Views\tasks\Index.cshtml" />
+    <Content Include="Views\companies\Create.cshtml" />
+    <Content Include="Views\companies\Delete.cshtml" />
+    <Content Include="Views\companies\Details.cshtml" />
+    <Content Include="Views\companies\Edit.cshtml" />
+    <Content Include="Views\companies\Index.cshtml" />
     <Content Include="Views\Auth\Register.cshtml" />
-    <Content Include="Views\App\_Layout.cshtml" />
-    <Content Include="Views\App\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\data\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

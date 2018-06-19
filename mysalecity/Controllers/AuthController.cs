@@ -1,4 +1,4 @@
-﻿using MYSALE.Models;
+﻿
 using mysalecity.Models;
 using System;
 using System.Collections.Generic;
@@ -19,24 +19,26 @@ namespace mysalecity.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginModel model)
+        public ActionResult Login(user model)
         {
             if (ModelState.IsValid)
             {
+                user User = new user(); 
                 // поиск пользователя в бд
-                Userlogindata userlogindata = null;
-                using (mscContext db = new mscContext())
+                
+                using (mysale_dbEntities db = new mysale_dbEntities())
                 {
-                    userlogindata = db.Userlogindatas.FirstOrDefault(u => u.Login == model.Name && u.Password == model.Password);
+                    User = db.users.FirstOrDefault(u => u.login == model.login && u.password == model.password);
 
                 }
-                if (userlogindata != null)
+                if (User != null)
                 {
-                    FormsAuthentication.SetAuthCookie(model.Name, true);
+                    FormsAuthentication.SetAuthCookie(model.login, true);
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
+                    Redirect("/Register");
                     ModelState.AddModelError("", "Пользователя с таким логином и паролем нет");
                 }
             }
@@ -48,30 +50,42 @@ namespace mysalecity.Controllers
         {
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(RegisterModel model)
+        public ActionResult Register(user model)
         {
             if (ModelState.IsValid)
             {
-                Userlogindata userlogindata = null;
-                using (mscContext db = new mscContext())
+                user User = null;
+                using (mysale_dbEntities db = new mysale_dbEntities())
                 {
-                    userlogindata = db.Userlogindatas.FirstOrDefault(u => u.Login == model.Name);
+                    User = db.users.FirstOrDefault(u => u.login == model.login);
                 }
-                if (userlogindata == null)
+                if (User == null)
                 {
                     // создаем нового пользователя
-                    using (mscContext db = new mscContext())
+                    using (mysale_dbEntities db = new mysale_dbEntities())
                     {
-                        db.Userlogindatas.Add(new Userlogindata { Login = model.Name, Password = model.Password});
+                        user that = new user
+                        {
+                            login = model.login,
+                            password = model.password,
+                            date_birth = model.date_birth,
+                            user_status = model.user_status,
+                            surname = model.surname,
+                            name = model.name,
+                            middle_name = model.middle_name
+                        };                        
+                        db.users.Add(that);
                         db.SaveChanges();
-                        userlogindata = db.Userlogindatas.Where(u => u.Login == model.Name && u.Password == model.Password).FirstOrDefault();
+                        
+                        User = db.users.Where(u => u.login == model.login && u.password == model.password).FirstOrDefault();
                     }
                     // если пользователь удачно добавлен в бд
-                    if (userlogindata != null)
+                    if (User != null)
                     {
-                        FormsAuthentication.SetAuthCookie(model.Name, true);
+                        FormsAuthentication.SetAuthCookie(model.login, true);
                         return RedirectToAction("Index", "Home");
                     }
                 }
@@ -83,6 +97,7 @@ namespace mysalecity.Controllers
 
             return View(model);
         }
+
         public ActionResult LogOut()
         {
             FormsAuthentication.SignOut();
